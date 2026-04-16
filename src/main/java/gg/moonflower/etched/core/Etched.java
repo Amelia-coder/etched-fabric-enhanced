@@ -7,13 +7,6 @@ import gg.moonflower.etched.common.sound.download.BandcampSource;
 import gg.moonflower.etched.common.sound.download.SoundCloudSource;
 import gg.moonflower.etched.core.fabric.EtchedConfig;
 import gg.moonflower.etched.core.registry.*;
-import net.fabricmc.fabric.api.object.builder.v1.villager.VillagerProfessionBuilder;
-import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.npc.VillagerProfession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,14 +16,7 @@ public class Etched {
     public static final Registrate REGISTRATE = Registrate.create(MOD_ID);
     public static final Logger LOGGER = LogManager.getLogger("Etched/General");
 
-
-    public Etched() {
-
-    }
-
     public static void init() {
-        //i guess following is needed to preload classes before registration or they will
-        // not be registered
         EtchedTags.register();
         EtchedMessages.init();
         EtchedBlocks.register();
@@ -39,15 +25,12 @@ public class Etched {
         EtchedMenus.register();
         EtchedRecipes.register();
         EtchedSounds.register();
-
-        // for some reason POI is broken so I guess I will add Crafting Recipe for the table for now
-        //EtchedVillagers.registers();
-
         REGISTRATE.register();
+
+        EtchedVillagers.registers(); // POI исправлен — раскомментировано
+
         EtchedConfig.HANDLER.load();
         SoundSourceManager.registerSource(new SoundCloudSource());
         SoundSourceManager.registerSource(new BandcampSource());
     }
-
 }
-
